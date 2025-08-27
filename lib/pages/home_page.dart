@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.yellowAccent[200],
       appBar: AppBar(
         backgroundColor: Colors.lightBlueAccent,
         shadowColor: Colors.white,
@@ -44,12 +44,15 @@ class _HomePageState extends State<HomePage> {
       ),
       body: pages[currentIndexBar],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.lightBlueAccent,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.black,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.black, size: 32,), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.checklist), label: 'Daily Tasks'),
+              icon: Icon(Icons.checklist, color: Colors.black, size: 32,), label: 'Daily Tasks'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.checklist), label: 'Weekly Tasks')
+              icon: Icon(Icons.checklist, color: Colors.black, size: 32,), label: 'Weekly Tasks')
         ],
         currentIndex: currentIndexBar,
         onTap: (int index) {

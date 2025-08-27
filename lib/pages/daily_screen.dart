@@ -1,3 +1,7 @@
+import 'package:alarm/alarm.dart';
+import 'package:alarm/model/alarm_settings.dart';
+import 'package:alarm/model/notification_settings.dart';
+import 'package:alarm/model/volume_settings.dart';
 import 'package:complete_task/providers/daily_provider.dart';
 import 'package:complete_task/utilities/design_text.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +19,11 @@ class _DailyScreenState extends State<DailyScreen> {
   bool checkValue = false;
   final taskTextController = TextEditingController();
   final descpTextControlloer = TextEditingController();
+  final alarmTime = DateTime.now().millisecondsSinceEpoch;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.yellowAccent[200],
       body: Consumer<DailyProvider>(
         builder: (context, value, child) {
           return ListView.builder(
@@ -33,14 +38,14 @@ class _DailyScreenState extends State<DailyScreen> {
                     color: Colors.lightBlue,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black87,
+                        color: Colors.grey.shade500,
                         offset: Offset(2, 2),
                         blurRadius: 8,
                         spreadRadius: 4,
                       ),
                       BoxShadow(
                         color: Colors.white,
-                        offset: Offset(-2, -2),
+                        offset: Offset(-4, -4),
                         blurRadius: 8,
                         spreadRadius: 2,
                       ),
@@ -59,21 +64,28 @@ class _DailyScreenState extends State<DailyScreen> {
                               onChanged: (checkValue) {
                                 setState(() {
                                   value.dailyTasks[index][0] = checkValue!;
+                                  value.saveDailyTask();
                                 });
                               },
-                              checkColor: Colors.lightBlue,
-                              activeColor: Colors.lightGreenAccent,
+                              checkColor: Colors.lightBlueAccent,
+                              activeColor: Colors.yellowAccent[200],
                             ),
                             SizedBox(width: 20),
                             Expanded(child: Text(value.dailyTasks[index][1])),
                             IconButton(
                                 onPressed: () {
-                                 showDialog(context: context, builder: (context){
-                                  return DialogDesign(title: value.dailyTasks[index][1], subTitle: "Are you sure to delete this task?", buttonFunction: (){
-                                    value.deleteDailyTask(index);
-                                    Navigator.pop(context);
-                                  });
-                                 });
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return DialogDesign(
+                                            title: value.dailyTasks[index][1],
+                                            subTitle:
+                                                "Are you sure to delete this task?",
+                                            buttonFunction: () {
+                                              value.deleteDailyTask(index);
+                                              Navigator.pop(context);
+                                            });
+                                      });
                                 },
                                 icon: Icon(
                                   Icons.delete,
@@ -88,7 +100,60 @@ class _DailyScreenState extends State<DailyScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.alarm)),
+                                onPressed: () async {
+                                  final TimeOfDay? pickedTime =
+                                      await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now(),
+                                  );
+                                  if (pickedTime != null) {
+                                    final now = DateTime.now();
+                                    DateTime alarmDateTime = DateTime(
+                                        now.year,
+                                        now.month,
+                                        now.day,
+                                        pickedTime.hour,
+                                        pickedTime.minute);
+
+                                    if (alarmDateTime.isBefore(now)) {
+                                      alarmDateTime =
+                                          alarmDateTime.add(Duration(days: 1));
+                                    }
+
+                                    final alarmSettings = AlarmSettings(
+                                      id: DateTime.now().millisecond,
+                                      dateTime: alarmDateTime,
+                                      assetAudioPath: 'null',
+                                      // 'lib/assets/sounds/alarm.mp3',
+                                      loopAudio: true,
+                                      vibrate: true,
+                                      volumeSettings: VolumeSettings.fade(
+                                        volume: 0.8,
+                                        fadeDuration: Duration(seconds: 5),
+                                        volumeEnforced: true,
+                                      ),
+                                      notificationSettings:
+                                          NotificationSettings(
+                                        title: 'Task Alert !!!',
+                                        body: Provider.of<DailyProvider>(
+                                                context,
+                                                listen: false)
+                                            .dailyTasks[index][1],
+                                        stopButton: 'Stop',
+                                        icon: 'notification_icon',
+                                        iconColor: Color(0xff862778),
+                                      ),
+                                    );
+                                    await Alarm.set(
+                                        alarmSettings: alarmSettings);
+
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text(
+                                                "Alarm set at ${pickedTime.format(context)}")));
+                                  }
+                                },
+                                icon: Icon(Icons.alarm, color: Colors.deepOrange,)),
                             TextButton(
                                 onPressed: () {
                                   showDialog(
@@ -271,6 +336,7 @@ class _DailyScreenState extends State<DailyScreen> {
                     ),
                   ));
         },
+        backgroundColor: Colors.lightBlue,
         child: Icon(Icons.add),
       ),
     );

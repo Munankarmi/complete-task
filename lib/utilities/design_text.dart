@@ -1,4 +1,10 @@
+import 'package:alarm/alarm.dart';
+import 'package:alarm/model/alarm_settings.dart';
+import 'package:alarm/model/volume_settings.dart';
+import 'package:alarm/model/notification_settings.dart';
+import 'package:complete_task/providers/daily_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DesignText extends StatelessWidget {
   final String text;
@@ -102,17 +108,18 @@ class DialogDesign extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(32.0),
         child: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(color: Colors.grey.shade500,
-               offset: Offset(4, 4),blurRadius: 4,spreadRadius: 2),
-              BoxShadow(
+          decoration: BoxDecoration(boxShadow: [
+            BoxShadow(
+                color: Colors.grey.shade500,
+                offset: Offset(4, 4),
+                blurRadius: 4,
+                spreadRadius: 2),
+            BoxShadow(
                 color: Colors.white,
                 offset: Offset(-2, -2),
-                blurRadius: 4,spreadRadius: 2
-              )
-            ],
-              borderRadius: BorderRadius.circular(12), color: Colors.grey),
+                blurRadius: 4,
+                spreadRadius: 2)
+          ], borderRadius: BorderRadius.circular(12), color: Colors.grey),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -149,5 +156,56 @@ class DialogDesign extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class NotifyTask extends StatelessWidget {
+  final DateTime? alarmTime;
+ NotifyTask({this.alarmTime, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+        onPressed: () async {
+          final TimeOfDay? pickedTime = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+          if (pickedTime != null) {
+            final now = DateTime.now();
+            DateTime alarmDateTime = DateTime(now.year, now.month, now.day,
+                pickedTime.hour, pickedTime.minute);
+
+            if (alarmDateTime.isBefore(now)) {
+              alarmDateTime = alarmDateTime.add(Duration(days: 1));
+            }
+
+            final alarmSettings = AlarmSettings(
+              id: DateTime.now().millisecond,
+              dateTime: alarmDateTime,
+              assetAudioPath: 'null',
+              // 'lib/assets/sounds/alarm.mp3',
+              loopAudio: true,
+              vibrate: true,
+              volumeSettings: VolumeSettings.fade(
+                volume: 0.8,
+                fadeDuration: Duration(seconds: 5),
+                volumeEnforced: true,
+              ),
+              notificationSettings: NotificationSettings(
+                title: 'Task Alert !!!',
+                body: Provider.of<DailyProvider>(context, listen: false).dailyTasks[0][1],
+                stopButton: 'Stop',
+                icon: 'notification_icon',
+                iconColor: Color(0xff862778),
+              ),
+            );
+            await Alarm.set(alarmSettings: alarmSettings);
+
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Alarm set at ${pickedTime.format(context)}")));
+          }
+        },
+        icon: Icon(Icons.alarm));
   }
 }
