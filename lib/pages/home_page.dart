@@ -1,6 +1,6 @@
 import 'package:complete_task/pages/daily_screen.dart';
 import 'package:complete_task/pages/home_screen.dart';
-import 'package:complete_task/pages/weekly_screen.dart';
+import 'package:complete_task/pages/weekly/weekly_screen.dart';
 import 'package:complete_task/utilities/design_text.dart';
 import 'package:flutter/material.dart';
 

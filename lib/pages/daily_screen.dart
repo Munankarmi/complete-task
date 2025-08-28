@@ -20,7 +20,7 @@ class _DailyScreenState extends State<DailyScreen> {
   final taskTextController = TextEditingController();
   final descpTextControlloer = TextEditingController();
   final alarmTime = DateTime.now().millisecondsSinceEpoch;
-  @override
+  @override   
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellowAccent[200],
@@ -337,6 +337,7 @@ class _DailyScreenState extends State<DailyScreen> {
                   ));
         },
         backgroundColor: Colors.lightBlue,
+
         child: Icon(Icons.add),
       ),
     );

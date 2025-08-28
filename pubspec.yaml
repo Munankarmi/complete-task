@@ -38,6 +38,8 @@ dependencies:
   hive_ce: ^2.11.3
   hive_ce_flutter: ^2.3.1
   alarm: ^5.1.4
+  analog_clock: ^0.1.1
+  table_calendar: ^3.2.0
 
 dev_dependencies:
   
