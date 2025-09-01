@@ -1,9 +1,15 @@
+import 'package:complete_task/pages/weekly/friday.dart';
 import 'package:complete_task/pages/weekly/monday.dart';
+import 'package:complete_task/pages/weekly/saturday.dart';
 import 'package:complete_task/pages/weekly/sunday.dart';
+import 'package:complete_task/pages/weekly/thursday.dart';
+import 'package:complete_task/pages/weekly/tuesday.dart';
+import 'package:complete_task/pages/weekly/wednesday.dart';
 import 'package:complete_task/providers/weekly_provider.dart';
 import 'package:complete_task/utilities/design_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class WeeklyScreen extends StatelessWidget {
   const WeeklyScreen({super.key});
@@ -25,7 +31,7 @@ class WeeklyScreen extends StatelessWidget {
                     weeklyLetter: 'Mon',
                     weeklyFullLetter: 'Monday',
                     weeklyFunction: () {
-                       showModalBottomSheet(
+                      showModalBottomSheet(
                           context: context,
                           builder: (context) {
                             return MondayTile();
@@ -36,19 +42,37 @@ class WeeklyScreen extends StatelessWidget {
                   DayDesign(
                     weeklyLetter: 'Tue',
                     weeklyFullLetter: 'Tuesday',
-                    weeklyFunction: () {},
+                    weeklyFunction: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return TuesdayTile();
+                          });
+                    },
                     weeklyCollor: Colors.redAccent,
                   ),
                   DayDesign(
                     weeklyLetter: 'Wed',
                     weeklyFullLetter: 'Wednesday',
-                    weeklyFunction: () {},
+                    weeklyFunction: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return WednesdayTile();
+                          });
+                    },
                     weeklyCollor: Colors.redAccent,
                   ),
                   DayDesign(
                     weeklyLetter: 'Thu',
                     weeklyFullLetter: 'Thursday',
-                    weeklyFunction: () {},
+                    weeklyFunction: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return ThursdayTile();
+                          });
+                    },
                     weeklyCollor: Colors.orange,
                   )
                 ],
@@ -62,13 +86,25 @@ class WeeklyScreen extends StatelessWidget {
                   DayDesign(
                     weeklyLetter: 'Fri',
                     weeklyFullLetter: 'Friday',
-                    weeklyFunction: () {},
+                    weeklyFunction: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return FirdayTile();
+                          });
+                    },
                     weeklyCollor: Colors.lightGreenAccent,
                   ),
                   DayDesign(
                     weeklyLetter: 'Sat',
                     weeklyFullLetter: 'Saturday',
-                    weeklyFunction: () {},
+                    weeklyFunction: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return SaturdayTile();
+                          });
+                    },
                     weeklyCollor: Colors.green,
                   ),
                   DayDesign(
@@ -89,14 +125,11 @@ class WeeklyScreen extends StatelessWidget {
                 thickness: 2,
                 color: Colors.lightBlue,
               ),
-              Container(
-                child: WeeklyListTile(
-                  weeklyCheckValue: false,
-                  weeklyText: 'taskq',
-                  weeklyDescp: 'This is task for test1 ',
-                  deleteButton: () {},
-                  checkValueFun: (p0) {},
-                  descpButton: () {},
+              Expanded(
+                child: TableCalendar(
+                  focusedDay: DateTime.now(),
+                  firstDay: DateTime.utc(2010, 10, 16),
+                  lastDay: DateTime.utc(2030, 3, 14),
                 ),
               )
             ],

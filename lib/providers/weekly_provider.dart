@@ -11,16 +11,28 @@ class WeeklyProvider extends ChangeNotifier {
   WeeklyProvider() {
     loadSundayTasks();
     loadMondayTasks();
-  }
-  void loadSundayTasks() {
-    sundayTasks = _sunday.get("SUNDAY_TASKS", defaultValue: []) ?? [];
+    loadTuesdayTasks();
+    loadWednesdayTasks();
+    loadThursdayTasks();
+    loadFridayTasks();
+    loadSaturdayTasks();
   }
 
-  void addSundayTask(List listName, bool weeklyCheckValue, String weeklyText,
+  void addWeeklyTask(List listName, bool weeklyCheckValue, String weeklyText,
       String weeklyDescp) {
     listName.add([weeklyCheckValue, weeklyText, weeklyDescp]);
     saveSundayTasks();
+    saveMondayTasks();
+    saveTuesdayTasks();
+    saveWednesdayTaskss();
+    saveThursdayTasks();
+    saveFridayTasks();
+    saveSaturdayTasks();
     notifyListeners();
+  }
+
+  void loadSundayTasks() {
+    sundayTasks = _sunday.get("SUNDAY_TASKS", defaultValue: []) ?? [];
   }
 
   void saveSundayTasks() {
@@ -28,14 +40,19 @@ class WeeklyProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteSundayTask(List listName, int index) {
+  void deleteWeeklyTask(List listName, int index) {
     listName.removeAt(index);
     saveSundayTasks();
+    saveMondayTasks();
+    saveTuesdayTasks();
+    saveWednesdayTaskss();
+    saveThursdayTasks();
+    saveFridayTasks();
+    saveSaturdayTasks();
     notifyListeners();
   }
 
-
- //monday List
+  //monday List
   final _mondayTasks = Hive.box("MONDAY_TASKS");
   List mondayTasks = [];
 
@@ -43,36 +60,76 @@ class WeeklyProvider extends ChangeNotifier {
     mondayTasks = _mondayTasks.get("MONDAY_TASKS", defaultValue: []) ?? [];
   }
 
-  void addMondayTask(List listName, bool weeklyCheckValue, String weeklyText,
-      String weeklyDescp) {
-    listName.add([weeklyCheckValue, weeklyText, weeklyDescp]);
-    saveMondayTasks();
-    notifyListeners();
-  }
-
   void saveMondayTasks() {
     _mondayTasks.put("MONDAY_TASKS", mondayTasks);
     notifyListeners();
   }
 
-  void deleteMondayTask(List listName, int index) {
-    listName.removeAt(index);
-    saveMondayTasks();
+// tuesday list
+  final _tuesdayTasks = Hive.box("TUESDAY_TASKS");
+  List tuesdayTasks = [];
+
+  void loadTuesdayTasks() {
+    tuesdayTasks = _tuesdayTasks.get("TUESDAY_TASKS", defaultValue: []) ?? [];
+  }
+
+  void saveTuesdayTasks() {
+    _tuesdayTasks.put("TUESDAY_TASKS", tuesdayTasks);
     notifyListeners();
   }
 
-  // final _tuesdayTasks = Hive.box("TUESDAY_TASKS");
-  List tuesdayTasks = [];
-
-  // final _wednesdayTasks = Hive.box("WEDNESDAY_TASKS");
+// wednesday list
+  final _wednesdayTasks = Hive.box("WEDNESDAY_TASKS");
   List wednesdayTasks = [];
 
-  // final _thursdayTasks = Hive.box("THURSDAY_TASKS");
+  void loadWednesdayTasks() {
+    wednesdayTasks =
+        _wednesdayTasks.get("WEDNESDAY_TASKS", defaultValue: []) ?? [];
+  }
+
+  void saveWednesdayTaskss() {
+    _wednesdayTasks.put("WEDNESDAY_TASKS", wednesdayTasks);
+    notifyListeners();
+  }
+
+// thursday list
+  final _thursdayTasks = Hive.box("THURSDAY_TASKS");
   List thursdayTasks = [];
 
-  // final _fridayTasks = Hive.box("FRIDAY_TASKS");
+  void loadThursdayTasks() {
+    thursdayTasks =
+        _thursdayTasks.get("THURSDAY_TASKS", defaultValue: []) ?? [];
+  }
+
+  void saveThursdayTasks() {
+    _thursdayTasks.put("THURSDAY_TASKS", thursdayTasks);
+    notifyListeners();
+  }
+
+// friday list
+  final _fridayTasks = Hive.box("FRIDAY_TASKS");
   List fridayTasks = [];
 
-  // final _saturdayTasks = Hive.box("SATURDAY_TASKS");
+  void loadFridayTasks() {
+    fridayTasks = _fridayTasks.get("FRIDAY_TASKS", defaultValue: []) ?? [];
+  }
+
+  void saveFridayTasks() {
+    _fridayTasks.put("FRIDAY_TASKS", fridayTasks);
+    notifyListeners();
+  }
+
+// saturday list
+  final _saturdayTasks = Hive.box("SATURDAY_TASKS");
   List saturdayTasks = [];
+
+  void loadSaturdayTasks() {
+    saturdayTasks =
+        _saturdayTasks.get("SATURDAY_TASKS", defaultValue: []) ?? [];
+  }
+
+  void saveSaturdayTasks() {
+    _saturdayTasks.put("SATURDAY_TASKS", saturdayTasks);
+    notifyListeners();
+  }
 }

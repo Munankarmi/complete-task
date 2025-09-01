@@ -17,7 +17,7 @@ class _MondayTileState extends State<MondayTile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreenAccent,
+      backgroundColor: Colors.orangeAccent,
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
         title: Text('Monday Tasks'),
@@ -41,7 +41,7 @@ class _MondayTileState extends State<MondayTile> {
                               subTitle:
                                   'Are you sure to delete ${value.mondayTasks[index][1]}',
                               buttonFunction: () {
-                                value.deleteMondayTask(
+                                value.deleteWeeklyTask(
                                     value.mondayTasks, index);
                                 Navigator.pop(context);
                               });
@@ -80,7 +80,7 @@ class _MondayTileState extends State<MondayTile> {
                   return weeklyTaskDesign(
                       weeklyText: 'Monday Task',
                       addFunction: () {
-                        provider.addMondayTask(
+                        provider.addWeeklyTask(
                             provider.mondayTasks,
                             mondayCheckValue,
                             mondayTask.text,

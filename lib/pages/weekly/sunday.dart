@@ -41,7 +41,7 @@ class _SundayTileState extends State<SundayTile> {
                               subTitle:
                                   'Are you sure to delete ${value.sundayTasks[index][1]}',
                               buttonFunction: () {
-                                value.deleteSundayTask(
+                                value.deleteWeeklyTask(
                                     value.sundayTasks, index);
                                 Navigator.pop(context);
                               });
@@ -80,7 +80,7 @@ class _SundayTileState extends State<SundayTile> {
                   return weeklyTaskDesign(
                       weeklyText: 'Sunday Task',
                       addFunction: () {
-                        provider.addSundayTask(
+                        provider.addWeeklyTask(
                             provider.sundayTasks,
                             sundayCheckValue,
                             sundayTask.text,
