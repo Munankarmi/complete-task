@@ -20,7 +20,11 @@ class _ThursdayTileState extends State<ThursdayTile> {
       backgroundColor: Colors.orangeAccent,
       appBar: AppBar(
         backgroundColor: Colors.lightBlue,
-        title: Text('Thursday Tasks'),
+        title: DesignText(
+          text: 'Thursday Tasks',
+          boldText: true,
+          textSize: 24,
+        ),
         centerTitle: true,
       ),
       body: Consumer<WeeklyProvider>(

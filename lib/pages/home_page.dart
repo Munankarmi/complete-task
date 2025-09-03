@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.lightBlueAccent,
         shadowColor: Colors.white,
         elevation: 4,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(8)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         title: Column(
           children: [
             DesignText(
@@ -48,11 +48,27 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.black,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home, color: Colors.black, size: 32,), label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.checklist, color: Colors.black, size: 32,), label: 'Daily Tasks'),
+              icon: Icon(
+                Icons.home,
+                color: Colors.black,
+                size: 32,
+              ),
+              label: 'Home'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.checklist, color: Colors.black, size: 32,), label: 'Weekly Tasks')
+              icon: Icon(
+                Icons.checklist,
+                color: Colors.black,
+                size: 32,
+              ),
+              label: 'Daily Tasks'),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.checklist,
+                color: Colors.black,
+                size: 32,
+              ),
+              label: 'Weekly Tasks')
         ],
         currentIndex: currentIndexBar,
         onTap: (int index) {

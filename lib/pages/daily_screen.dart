@@ -20,7 +20,7 @@ class _DailyScreenState extends State<DailyScreen> {
   final taskTextController = TextEditingController();
   final descpTextControlloer = TextEditingController();
   final alarmTime = DateTime.now().millisecondsSinceEpoch;
-  @override   
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellowAccent[200],
@@ -71,7 +71,12 @@ class _DailyScreenState extends State<DailyScreen> {
                               activeColor: Colors.yellowAccent[200],
                             ),
                             SizedBox(width: 20),
-                            Expanded(child: Text(value.dailyTasks[index][1])),
+                            Expanded(
+                                child: DesignText(
+                              text: value.dailyTasks[index][1],
+                              boldText: true,
+                              textSize: 20,
+                            )),
                             IconButton(
                                 onPressed: () {
                                   showDialog(
@@ -153,7 +158,10 @@ class _DailyScreenState extends State<DailyScreen> {
                                                 "Alarm set at ${pickedTime.format(context)}")));
                                   }
                                 },
-                                icon: Icon(Icons.alarm, color: Colors.deepOrange,)),
+                                icon: Icon(
+                                  Icons.alarm,
+                                  color: Colors.deepOrange,
+                                )),
                             TextButton(
                                 onPressed: () {
                                   showDialog(
@@ -170,13 +178,13 @@ class _DailyScreenState extends State<DailyScreen> {
                                                       color:
                                                           Colors.grey.shade500,
                                                       offset: Offset(2, 2),
-                                                      blurRadius: 4,
-                                                      spreadRadius: 2),
+                                                      blurRadius: 2,
+                                                      spreadRadius: 1),
                                                   BoxShadow(
                                                       color: Colors.white,
                                                       offset: Offset(-2, -2),
-                                                      blurRadius: 4,
-                                                      spreadRadius: 2)
+                                                      blurRadius: 2,
+                                                      spreadRadius: 1)
                                                 ],
                                                 borderRadius:
                                                     BorderRadius.circular(12),
@@ -186,6 +194,8 @@ class _DailyScreenState extends State<DailyScreen> {
                                                   const EdgeInsets.all(32.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.min,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   DesignText(
                                                     text: value
@@ -200,6 +210,7 @@ class _DailyScreenState extends State<DailyScreen> {
                                                     text: value
                                                         .dailyTasks[index][2],
                                                     textSize: 20,
+                                                    textSpace: 2,
                                                   ),
                                                   SizedBox(
                                                     height: 20,
@@ -247,18 +258,18 @@ class _DailyScreenState extends State<DailyScreen> {
                           // height: 200,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              color: Colors.grey,
+                              color: Colors.lightBlue,
                               boxShadow: [
                                 BoxShadow(
                                     color: Colors.blueGrey,
                                     offset: Offset(4, 4),
-                                    blurRadius: 8,
+                                    blurRadius: 4,
                                     spreadRadius: 2),
                                 BoxShadow(
                                     color: Colors.white,
-                                    offset: Offset(-4, -4),
-                                    blurRadius: 8,
-                                    spreadRadius: 2)
+                                    offset: Offset(-2, -2),
+                                    blurRadius: 2,
+                                    spreadRadius: 1)
                               ]),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -337,7 +348,6 @@ class _DailyScreenState extends State<DailyScreen> {
                   ));
         },
         backgroundColor: Colors.lightBlue,
-
         child: Icon(Icons.add),
       ),
     );

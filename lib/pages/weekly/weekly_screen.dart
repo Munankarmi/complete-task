@@ -22,11 +22,23 @@ class WeeklyScreen extends StatelessWidget {
           return Column(
             children: [
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  DayDesign(
+                    weeklyLetter: 'Sun',
+                    weeklyFullLetter: 'Sunday',
+                    weeklyFunction: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return SundayTile();
+                          });
+                    },
+                    weeklyCollor: Colors.lightGreenAccent,
+                  ),
                   DayDesign(
                     weeklyLetter: 'Mon',
                     weeklyFullLetter: 'Monday',
@@ -63,6 +75,14 @@ class WeeklyScreen extends StatelessWidget {
                     },
                     weeklyCollor: Colors.redAccent,
                   ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
                   DayDesign(
                     weeklyLetter: 'Thu',
                     weeklyFullLetter: 'Thursday',
@@ -74,15 +94,7 @@ class WeeklyScreen extends StatelessWidget {
                           });
                     },
                     weeklyCollor: Colors.orange,
-                  )
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                  ),
                   DayDesign(
                     weeklyLetter: 'Fri',
                     weeklyFullLetter: 'Friday',
@@ -107,29 +119,41 @@ class WeeklyScreen extends StatelessWidget {
                     },
                     weeklyCollor: Colors.green,
                   ),
-                  DayDesign(
-                    weeklyLetter: 'Sun',
-                    weeklyFullLetter: 'Sunday',
-                    weeklyFunction: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return SundayTile();
-                          });
-                    },
-                    weeklyCollor: Colors.lightGreenAccent,
-                  )
                 ],
+              ),
+              SizedBox(
+                height: 50,
               ),
               Divider(
                 thickness: 2,
                 color: Colors.lightBlue,
               ),
-              Expanded(
-                child: TableCalendar(
-                  focusedDay: DateTime.now(),
-                  firstDay: DateTime.utc(2010, 10, 16),
-                  lastDay: DateTime.utc(2030, 3, 14),
+              SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.yellowAccent,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey.shade500,
+                            offset: Offset(4, 4),
+                            blurRadius: 16,
+                            spreadRadius: 4),
+                        BoxShadow(
+                            color: Colors.white,
+                            offset: Offset(-4, -4),
+                            blurRadius: 16,
+                            spreadRadius: 4)
+                      ],
+                      borderRadius: BorderRadius.circular(8)),
+                  child: TableCalendar(
+                    focusedDay: DateTime.now(),
+                    firstDay: DateTime.utc(2010, 10, 16),
+                    lastDay: DateTime.utc(2030, 3, 14),
+                  ),
                 ),
               )
             ],
