@@ -137,7 +137,13 @@ class DialogDesign extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              DesignText(text: subTitle),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: DesignText(
+                  text: subTitle,
+                  textSpace: 1,
+                ),
+              ),
               SizedBox(
                 height: 10,
               ),
@@ -375,10 +381,10 @@ class weeklyTaskDesign extends StatelessWidget {
                     height: 10,
                   ),
                   DesignTextField(
-                      hintText: 'Description',
-                      textController: descpController,
-                      verticalSize: 28,
-                      ),
+                    hintText: 'Description',
+                    textController: descpController,
+                    verticalSize: 28,
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -407,12 +413,12 @@ class WeeklyContainer extends StatelessWidget {
   final void Function(bool?)? changedWeeklyValue;
   final String weeklyTask;
   final String weeklyDescp;
-  const WeeklyContainer({
-    required this.weeklyCheckValue,
-    required this.changedWeeklyValue,
-    required this.weeklyTask,
-    required this.weeklyDescp,
-    super.key});
+  const WeeklyContainer(
+      {required this.weeklyCheckValue,
+      required this.changedWeeklyValue,
+      required this.weeklyTask,
+      required this.weeklyDescp,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -423,32 +429,40 @@ class WeeklyContainer extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Container(
             decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.shade500,
-                          offset: Offset(4, 4),
-                          blurRadius: 4,
-                          spreadRadius: 2),
-                      BoxShadow(
-                          color: Colors.white,
-                          offset: Offset(-2, -2),
-                          blurRadius: 2,
-                          spreadRadius: 2)
-                    ]),
+                color: Colors.lightBlue,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.shade500,
+                      offset: Offset(4, 4),
+                      blurRadius: 4,
+                      spreadRadius: 2),
+                  BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(-2, -2),
+                      blurRadius: 2,
+                      spreadRadius: 2)
+                ]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Checkbox(value: weeklyCheckValue, onChanged: changedWeeklyValue),
+                Checkbox(
+                    value: weeklyCheckValue, onChanged: changedWeeklyValue),
                 DesignText(text: weeklyTask),
-                TextButton(onPressed: (){
-                  showDialog(context: context, builder: (context){
-                    return DialogDesign(title: weeklyTask, subTitle: weeklyDescp, buttonFunction: () => Navigator.pop(context));
-                  });
-                }, child: Text('Learn more..'))
+                TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return DialogDesign(
+                                title: weeklyTask,
+                                subTitle: weeklyDescp,
+                                buttonFunction: () => Navigator.pop(context));
+                          });
+                    },
+                    child: Text('Learn more..'))
               ],
             ),
           ),

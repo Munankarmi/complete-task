@@ -22,7 +22,7 @@ class WeeklyScreen extends StatelessWidget {
           return Column(
             children: [
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,14 +122,14 @@ class WeeklyScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 50,
+                height: 40,
               ),
               Divider(
                 thickness: 2,
                 color: Colors.lightBlue,
               ),
               SizedBox(
-                height: 40,
+                height: 20,
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),

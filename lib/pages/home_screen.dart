@@ -13,10 +13,10 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 40,
+            height: 20,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(60, 0, 60, 0),
+          Expanded(
+            flex: 3,
             child: Container(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -36,24 +36,21 @@ class HomeScreen extends StatelessWidget {
               ),
               child: AnalogClock(
                 showAllNumbers: true,
-                height: 250,
                 secondHandColor: Colors.lightBlue,
               ),
             ),
           ),
           SizedBox(
-            height: 40,
+            height: 20,
           ),
           Divider(
             thickness: 1,
             color: Colors.lightBlue,
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+          Expanded(
+            flex: 6,
             child: Container(
+              margin: EdgeInsets.all(20),
               decoration: BoxDecoration(
                   color: Colors.yellowAccent,
                   boxShadow: [
